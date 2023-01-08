@@ -34,6 +34,11 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
+        <!-- Caspio Login Verification -->
+        <!-- <div id="CaspioFormDiv_bceeb000683b68856e2040f9aa6e">
+            <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000683b68856e2040f9aa6e/net"></script>
+        </div> -->
+
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -267,7 +272,21 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">1</span>
+
+                                <!-- <span class="badge badge-danger badge-counter">1</span> -->
+                                <script>
+                                    document.addEventListener("DataPageReady", function(e) {
+                                        if (e.detail.appKey !== "bceeb000cb4a7b02ba64420fb4c3") return
+                                        e.stopImmediatePropagation()
+                                        const mainDiv = document.getElementById("CaspioFormDiv_bceeb000cb4a7b02ba64420fb4c3")
+                                        const count = Array.from(mainDiv.querySelectorAll(":scope div[data-cb-name='data-row']")).length
+                                        let counterElement = document.createElement('span')
+                                        counterElement.classList.add("badge", "badge-danger", "badge-counter")
+                                        counterElement.innerText = count === 0 ? "" : count
+                                        document.getElementById("alertsDropdown").appendChild(counterElement)
+                                    })
+                                </script>
+                                
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -275,7 +294,7 @@
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
                                             <i class="fas fa-file-alt text-white"></i>
@@ -307,7 +326,13 @@
                                         <div class="small text-gray-500">December 2, 2019</div>
                                         Spending Alert: We've noticed unusually high spending for your account.
                                     </div>
-                                </a>
+                                </a> -->
+
+                                
+
+                                <div id="CaspioFormDiv_bceeb000cb4a7b02ba64420fb4c3">
+                                    <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000cb4a7b02ba64420fb4c3/net"></script>
+                                </div>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
@@ -323,8 +348,14 @@
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
+                                <h6 class="dropdown-header d-flex flex-row justify-content-between align-items-center">
                                     Message Center
+                                    <a href="#" class="btn btn-light btn-sm">
+                                        <span class="icon text-primary">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                        <!-- <span class="text"></span> -->
+                                    </a>
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
@@ -522,9 +553,11 @@
                         <script>
                             document.addEventListener("DataPageReady", function(e) {
                             if (!e.appKey === "bceeb000788aae2e91f740dd8430") return
+                            document.getElementById("NavigationTableBottom"+e.detail.uniqueSuffix).remove()
                             const tblElement = document.getElementById("cbTable"+e.detail.uniqueSuffix)
                             let table = new DataTable("#cbTable"+e.detail.uniqueSuffix)
                             tblElement.classList.add("display")
+                            e.stopImmediatePropagation()
                             })
                         </script>
 
@@ -808,7 +841,7 @@
                 <div class="modal-body">Select "Logout" below and have a nice day!</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="https://c2dcc460.caspio.com/folderlogout">Logout</a>
                 </div>
             </div>
         </div>
