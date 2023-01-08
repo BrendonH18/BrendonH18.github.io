@@ -28,15 +28,12 @@
     <div class="container">
 
         <!-- Caspio Login -->
-        <div id="CaspioFormDiv_bceeb000ec028abf57d34785bae1">
-            <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000ec028abf57d34785bae1/net"></script>
-        </div>
-
+        
         <!-- Outer Row -->
         <div class="row justify-content-center">
-
+            
             <div class="col-xl-10 col-lg-12 col-md-9">
-
+                
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
@@ -49,7 +46,48 @@
                                         <!-- <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1> -->
                                     </div>
                                     <form class="user">
-                                        <div class="form-group">
+
+                                        <!-- Caspio Login -->
+                                        <div id="CaspioFormDiv_bceeb000ec028abf57d34785bae1">
+                                            <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000ec028abf57d34785bae1/net"></script>
+                                            
+                                            <!-- Format Login from Caspio -->
+                                            <script>
+                                                document.addEventListener("DataPageReady", function(e) {
+                                                    if (e.detail.appKey !== "bceeb000ec028abf57d34785bae1") return
+                                                    e.stopImmediatePropagation()
+                                                    
+                                                    const mainDiv = document.getElementById("CaspioFormDiv_bceeb000ec028abf57d34785bae1")
+                                                    Array.from(mainDiv.querySelectorAll(":scope label")).forEach(x => x.remove())
+                                                    Array.from(mainDiv.querySelectorAll(":scope table[role='presentation']")).forEach(x => x.classList.add("w-100"))
+                                                    
+                                                    let username = mainDiv.querySelector("input[id='xip_str_Email']")
+                                                    let usernameWrap = document.createElement('div')
+                                                    usernameWrap.classList.add("form-group")
+                                                    username.parentNode.insertBefore(usernameWrap, username)
+                                                    usernameWrap.appendChild(username)
+                                                    username.type = "email"
+                                                    username.classList.add("form-control", "form-control-user")
+                                                    username.placeholder="Enter Email Address..."
+
+                                                    let password = mainDiv.querySelector("input[id='xip_str_Password']")
+                                                    let passwordWrap = document.createElement('div')
+                                                    passwordWrap.classList.add("form-group")
+                                                    password.parentNode.insertBefore(passwordWrap, password)
+                                                    passwordWrap.appendChild(password)
+                                                    password.type = "password"
+                                                    password.classList.add("form-control", "form-control-user")
+                                                    password.placeholder="Password"
+
+                                                    let submit = mainDiv.querySelector("input[type='submit']")
+                                                    submit.classList.add("btn", "btn-primary", "btn-user", "btn-block")
+                                                })
+                                            </script>
+                                        </div>
+                                        
+
+
+                                        <!-- <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
@@ -58,16 +96,17 @@
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
-                                        <!-- <div class="form-group">
+                                        <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <a href="assets/field-dashboard.html" class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
+                                        </a> -->
+
                                         <!-- <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google

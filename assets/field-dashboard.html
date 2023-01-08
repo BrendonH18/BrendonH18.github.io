@@ -282,7 +282,10 @@
                                         const count = Array.from(mainDiv.querySelectorAll(":scope div[data-cb-name='data-row']")).length
                                         let counterElement = document.createElement('span')
                                         counterElement.classList.add("badge", "badge-danger", "badge-counter")
-                                        counterElement.innerText = count === 0 ? "" : count
+                                        let innerNumber = ""
+                                        if (count > 9) innerNumber = "9+"
+                                        if (count <=9 && count > 1 ) innerNumber = count
+                                        counterElement.innerText = innerNumber
                                         document.getElementById("alertsDropdown").appendChild(counterElement)
                                     })
                                 </script>
