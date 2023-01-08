@@ -297,6 +297,12 @@
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
+                                
+                                <!-- Caspio Alerts -->
+                                <div id="CaspioFormDiv_bceeb000cb4a7b02ba64420fb4c3">
+                                    <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000cb4a7b02ba64420fb4c3/net"></script>
+                                </div>
+
                                 <!-- <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
@@ -330,12 +336,7 @@
                                         Spending Alert: We've noticed unusually high spending for your account.
                                     </div>
                                 </a> -->
-
                                 
-
-                                <div id="CaspioFormDiv_bceeb000cb4a7b02ba64420fb4c3">
-                                    <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000cb4a7b02ba64420fb4c3/net"></script>
-                                </div>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
@@ -414,36 +415,52 @@
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="../img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                        <div id="CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target">
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target_name"></span>
+                                    <img class="img-profile rounded-circle shadow-sm"
+                                        src="../img/undraw_profile.svg" id="CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target_image">
                                 </a>
-                                <!-- <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a> -->
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    <!-- <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Settings
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Activity Log
+                                    </a> -->
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                        </div>
+                        <div id="CaspioFormDiv_bceeb000ce2b2206a4e641149fdd" style="display: none">
+                            <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000ce2b2206a4e641149fdd/net"></script>
+                            <script>
+                                document.addEventListener("DataPageReady", function(e) {
+                                    if (e.detail.appKey !== "bceeb000ce2b2206a4e641149fdd") return
+                                    e.stopImmediatePropagation()
+                                    const mainDiv = document.getElementById("CaspioFormDiv_bceeb000ce2b2206a4e641149fdd")
+                                    const name = mainDiv.querySelector("#cbTable"+e.detail.uniqueSuffix+" > tbody > tr:nth-child(1) > td:nth-child(2) > span").textContent
+                                    const photo = mainDiv.querySelector("#cbTable"+e.detail.uniqueSuffix+" > tbody > tr:nth-child(2) > td:nth-child(2) > span > a").href
+                                    document.getElementById("CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target_name").innerText = name
+                                    document.getElementById("CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target_image").src = photo
+                                })
+                            </script>
+                        </div>
 
                     </ul>
 
