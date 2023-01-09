@@ -421,9 +421,9 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target_name"></span>
-                                    <img class="img-profile rounded-circle shadow-sm"
-                                        src="../img/undraw_profile.svg" id="CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target_image">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small User-Name" id=""></span>
+                                    <img class="img-profile rounded-circle shadow-sm User-Photo"
+                                        src="../img/undraw_profile.svg" id="">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -457,8 +457,8 @@
                                     const mainDiv = document.getElementById("CaspioFormDiv_bceeb000ce2b2206a4e641149fdd")
                                     const name = mainDiv.querySelector("#cbTable"+e.detail.uniqueSuffix+" > tbody > tr:nth-child(1) > td:nth-child(2) > span").textContent
                                     const photo = mainDiv.querySelector("#cbTable"+e.detail.uniqueSuffix+" > tbody > tr:nth-child(2) > td:nth-child(2) > span > a").href
-                                    document.getElementById("CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target_name").innerText = name
-                                    document.getElementById("CaspioFormDiv_bceeb000ce2b2206a4e641149fdd_target_image").src = photo
+                                    Array.from(document.getElementsByClassName("User-Name")).forEach(element => element.innerText = name)
+                                    Array.from(document.getElementsByClassName("User-Photo")).forEach(element => element.src = photo)
                                 })
                             </script>
                         </div>
@@ -597,7 +597,7 @@
                                         <div class="d-flex flex-column align-items-center text-center">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle shadow-sm" width="150" id="Field-Photo">
                                             <div class="mt-3">
-                                            <h4 id="Field-FullName"></h4>
+                                            <h4 class="Field-FullName"></h4>
                                             <p class="text-secondary mb-1">Field Consultant</p>
                                             <p class="text-muted font-size-sm">Miller Connections</p>
                                             <!-- <button class="btn btn-primary">Message</button> -->
@@ -695,7 +695,7 @@
                                                                 return
                                                             }
                                                         }
-                                                        if( document.getElementById(dataLinks[ele]) ) document.getElementById(dataLinks[ele]).innerText = data[ele]
+                                                        if( document.getElementsByClassName(dataLinks[ele]) ) Array.from(document.getElementsByClassName(dataLinks[ele])).forEach(element => element.innerText = data[ele])
                                                     })
                                                 })
                                             </script>
@@ -704,43 +704,43 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="row">
-                                                    <div class="col-sm-2 text-center">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-male"></i>
                                                         <!-- <h6 class="mb-0">Name</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary" id="Prospect-FullName"></div>
+                                                    <div class="col-sm-11 text-secondary Prospect-FullName" id=""></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-sm-2 text-center">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-envelope"></i>
                                                         <!-- <h6 class="mb-0">Email</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary" id="Prospect-Email"></div>
+                                                    <div class="col-sm-11 text-secondary Prospect-Email" id=""></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-sm-2 text-center">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-phone fa-rotate-90"></i>
                                                         <!-- <h6 class="mb-0">Phone</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary" id="Prospect-Phone"></div>
+                                                    <div class="col-sm-11 text-secondary Prospect-Phone" id=""></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-sm-2 text-center">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-phone fa-rotate-90"></i>
                                                         <!-- <h6 class="mb-0">Mobile</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary" id="Prospect-Phone1"></div>
+                                                    <div class="col-sm-11 text-secondary Prospect-Phone1" id=""></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-sm-2 text-center">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-map-marker-alt"></i>
                                                         <!-- <h6 class="mb-0">Addr.</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary Address" id="Prospect-FullAddress"></div>
+                                                    <div class="col-sm-11 text-secondary Prospect-FullAddress" id=""></div>
                                                 </div>
                                                 <!-- <hr>
                                                 <div class="row">
@@ -751,43 +751,43 @@
                                             </div>
                                             <div class="col">
                                                 <div class="row">
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-sliders-h"></i>
                                                         <!-- <h6 class="mb-0">Name</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-primary" id="Opportunity-Disposition"></div>
+                                                    <div class="col-sm-11 text-primary Opportunity-Disposition" id=""></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-calendar-alt"></i>
                                                         <!-- <h6 class="mb-0">Email</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary" id="Opportunity-Consultation"></div>
+                                                    <div class="col-sm-11 text-secondary Opportunity-Consultation" id=""></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-check-square"></i>
                                                         <!-- <h6 class="mb-0">Phone</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary" id="Opportunity-Installation"></div>
+                                                    <div class="col-sm-11 text-secondary Opportunity-Installation" id=""></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-people-arrows"></i>
                                                         <!-- <h6 class="mb-0">Mobile</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary" id="Prospect-Referral"></div>
+                                                    <div class="col-sm-11 text-secondary Prospect-Referral" id=""></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-1">
                                                         <i class="fas fa-solid fa-user-tag"></i>
                                                         <!-- <h6 class="mb-0">Addr.</h6> -->
                                                     </div>
-                                                    <div class="col-sm-10 text-secondary" id="Phone-FullName"></div>
+                                                    <div class="col-sm-11 text-secondary Phone-FullName" id=""></div>
                                                 </div>
                                                 <!-- <hr>
                                                 <div class="row">
@@ -852,6 +852,25 @@
                                         <div class="p-0 m-0">
                                           <div class="row d-flex justify-content-center">
                                             <div class="col-12">
+                                                <div class="card text-dark mt-3 shadow-sm border border-dark">
+                                                    <div class="card-body p-3">
+                                                        <div class="d-flex flex-start">
+                                                            <div class="d-flex flex-column justify-content-between">
+                                                                <img class="rounded-circle shadow-sm mr-3 User-Photo" id="" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar" width="60" height="60">
+                                                                <button type="button" class="btn btn-primary btn-sm mr-3 mb-3">Post</button>
+                                                            </div>
+                                                            <div class="w-100">
+                                                                <h6 class="font-weight-bold mb-1"><span class="User-Name"></span> says...</h6>
+                                                                <!-- <div class="d-flex align-items-center mb-3">
+
+                                                                </div> -->
+                                                                <textarea class="form-control" id="textAreaExample" rows="4" style="background: #fff;"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                
 
                                                 <div id="CaspioFormDiv_bceeb0002032e5fa949e457b9da9">
                                                     <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb0002032e5fa949e457b9da9/net"></script>
@@ -865,7 +884,7 @@
                                                             mainDiv.append(...elements)
                                                          })
                                                     </script>
-                                                    
+
 
                                                 </div>
 
