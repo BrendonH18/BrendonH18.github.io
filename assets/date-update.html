@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MillerConnections - DateUpdate</title>
+
+</head>
+
+<body id="page-top">
+
+<div id="CaspioFormDiv_bceeb000f9c4c58b50974c24913e">
+    <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000f9c4c58b50974c24913e/net"></script>
+</div>
+<script>
+    document.addEventListener("DataPageReady", function(e){
+        e.stopImmediatePropagation()
+        function closeiFrame(){
+            let iframe = window.frameElement
+            let parent = iframe.parentNode
+            parent.removeChild(iframe)
+        }
+        function clickSubmit(){
+            document.querySelector('input[type="submit"]').click()
+            setTimeout(closeiFrame,1000)
+        }
+        setTimeout(clickSubmit,1000)
+    })
+</script>
+
+</body>
+</html>

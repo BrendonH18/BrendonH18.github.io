@@ -573,7 +573,7 @@
 
                         <script>
                             document.addEventListener("DataPageReady", function(e) {
-                            if (!e.appKey === "bceeb000788aae2e91f740dd8430") return
+                            if (e.detail.appKey !== "bceeb000788aae2e91f740dd8430") return
                             document.getElementById("NavigationTableBottom"+e.detail.uniqueSuffix).remove()
                             const tblElement = document.getElementById("cbTable"+e.detail.uniqueSuffix)
                             let table = new DataTable("#cbTable"+e.detail.uniqueSuffix)
