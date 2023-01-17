@@ -577,6 +577,7 @@
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                         <h6 class="m-0 font-weight-bold text-primary">Chart</h6>
+                                        
                                         <!-- <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -594,7 +595,10 @@
                                     </div>
                                     <!-- Card Body -->
                                     <div class="card-body">
-                                        <div class="d-flex flex-column align-items-center text-center">
+                                        <div class="d-flex flex-column align-items-center text-center row">
+                                            <div id="CaspioFormDiv_bceeb000d60647e375c9482fa389" class="col">
+                                                <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000d60647e375c9482fa389/net"></script>
+                                            </div>
                                             <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle shadow-sm" width="150" id="Field-Photo">
                                             <div class="mt-3">
                                             <h4 class="Field-FullName"></h4>
@@ -906,23 +910,50 @@
                                                             select:{
                                                                 style: "os"
                                                             },
-                                                            dom: '<"d-flex flex-column"<"d-flex flex-row justify-content-between"lf>BRQ>rtip',
+                                                            dom: '<"d-flex flex-column"<"d-flex flex-row justify-content-between"lf>B<"btn-top-row row"><"btn-bottom-row row">RQ>rtip',
                                                             buttons: [
                                                                 {
                                                                     extend:"ConsultationToInstallation",
-                                                                    text:"Copy Date"
+                                                                    text:"Copy Date",
+                                                                    className: "btn-top-row"
                                                                 },
                                                                 {
                                                                     extend:"UpdateDisposition",
-                                                                    text:"Dispositions"
+                                                                    text:"Dispositions",
+                                                                    className: "btn-top-row"
                                                                 },
                                                                 {
                                                                     extend:"Close",
-                                                                    text:"Close"
+                                                                    text:"Close",
+                                                                    className: "btn-top-row"
+                                                                },
+                                                                {
+                                                                    text: "Select All",
+                                                                    action: function (e, dt, node, config) {
+                                                                        dt.rows({search: "applied"}).select()
+                                                                    },
+                                                                    className: "btn-bottom-row"
+                                                                },
+                                                                {
+                                                                    text: "Deselect All",
+                                                                    action: function (e, dt, node, config) {
+                                                                        dt.rows().deselect()
+                                                                    },
+                                                                    className: "btn-bottom-row"
                                                                 }
+
                                                             ]
                                                         })
-                                                        table.classList.add("stripe", "hover", "order-column", "row-border")
+                                                        // table.classList.add("stripe", "hover", "order-column", "row-border")
+                                                        document.querySelectorAll('button.btn-top-row, button.btn-bottom-row').forEach(btn => {
+                                                            btn.classList.add("col", "mx-3", "btn-primary")
+                                                            btn.classList.remove("btn-secondary")
+                                                        })
+                                                        document.querySelector('div.btn-top-row').append(...document.querySelectorAll("button.btn-top-row"))
+                                                        document.querySelector('div.btn-bottom-row').append(...document.querySelectorAll("button.btn-bottom-row"))
+                                                        document.querySelector('div.btn-bottom-row').classList.add("mt-3")
+                                                        document.querySelector('.dt-buttons.btn-group').remove()
+
                                                     })
 
 
