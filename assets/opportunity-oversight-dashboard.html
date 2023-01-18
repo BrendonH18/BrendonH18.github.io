@@ -858,21 +858,7 @@
 
                                         </div>
 
-<!-- <script>
-    document.addEventListener("DataPageReady", function(e){
-        e.stopImmediatePropagation()
-        function closeiFrame(){
-            let iframe = window.frameElement
-            let parent = iframe.parentNode
-            parent.removeChild(iframe)
-        }
-        function clickSubmit(){
-            document.querySelector('input[type="submit"]').click()
-            setTimeout(closeiFrame,1000)
-        }
-        setTimeout(clickSubmit,1000)
-    })
-</script> -->
+
                                         <script>
                                             document.addEventListener("DataPageReady", function(e) {
                                                     if (e.detail.appKey !== "bceeb00069ffe9971ee84eaebd92") return
@@ -894,13 +880,11 @@
                                                     thead.append(tr)
                                                     tblElement.insertBefore(thead, mainDiv.querySelector('tbody'))
                                                     document.getElementById("NavigationTableBottom"+e.detail.uniqueSuffix).remove()
+
                                                     $(document).ready(function(){
                                                         let table = $("#cbTable"+e.detail.uniqueSuffix).DataTable({
                                                             scrollX: true,
                                                             scrollCollapse: true,
-                                                            // fixedColumns: {
-                                                            //     heightMatch: "auto"
-                                                            // },
                                                             columnDefs: [
                                                                 {
                                                                     target: 0,
@@ -914,33 +898,165 @@
                                                             buttons: [
                                                                 {
                                                                     extend:"ConsultationToInstallation",
-                                                                    text:"Copy Date",
-                                                                    className: "btn-top-row"
+                                                                    text:"Copy Consult to Install*",
+                                                                    className: "btn-top-row",
+                                                                    init: function (dt, node, config) {
+                                                                        let that = this
+                                                                        dt.on('select.dt.DT deselect.dt.DT', function(){
+                                                                            let condition = dt.rows({selected: true}).count() < 1
+                                                                            if (condition) {
+                                                                                that[0].node.classList.remove("btn-primary")
+                                                                                that[0].node.classList.add("btn-outline-primary")
+                                                                                that.disable()
+                                                                                return
+                                                                            }
+                                                                            that[0].node.classList.add("btn-primary")
+                                                                            that[0].node.classList.remove("btn-outline-primary")
+                                                                            that.enable()
+                                                                            return
+                                                                        })
+                                                                        this[0].node.classList.add("btn-outline-primary")
+                                                                        this[0].node.classList.remove("btn-primary")
+                                                                        this.disable()
+                                                                    }
                                                                 },
                                                                 {
                                                                     extend:"UpdateDisposition",
-                                                                    text:"Dispositions",
-                                                                    className: "btn-top-row"
+                                                                    text:"Disposition Update*",
+                                                                    className: "btn-top-row",
+                                                                    init: function (dt, node, config) {
+                                                                        let that = this
+                                                                        dt.on('select.dt.DT deselect.dt.DT', function(){
+                                                                            let condition = dt.rows({selected: true}).count() < 1
+                                                                            if (condition) {
+                                                                                that[0].node.classList.remove("btn-primary")
+                                                                                that[0].node.classList.add("btn-outline-primary")
+                                                                                that.disable()
+                                                                                return
+                                                                            }
+                                                                            that[0].node.classList.add("btn-primary")
+                                                                            that[0].node.classList.remove("btn-outline-primary")
+                                                                            that.enable()
+                                                                            return
+                                                                        })
+                                                                        this[0].node.classList.add("btn-outline-primary")
+                                                                        this[0].node.classList.remove("btn-primary")
+                                                                        this.disable()
+                                                                    }
                                                                 },
                                                                 {
                                                                     extend:"Close",
-                                                                    text:"Close",
-                                                                    className: "btn-top-row"
+                                                                    text:"Close*",
+                                                                    className: "btn-top-row",
+                                                                    init: function (dt, node, config) {
+                                                                        let that = this
+                                                                        dt.on('select.dt.DT deselect.dt.DT', function(){
+                                                                            let condition = dt.rows({selected: true}).count() < 1
+                                                                            if (condition) {
+                                                                                that[0].node.classList.remove("btn-primary")
+                                                                                that[0].node.classList.add("btn-outline-primary")
+                                                                                that.disable()
+                                                                                return
+                                                                            }
+                                                                            that[0].node.classList.add("btn-primary")
+                                                                            that[0].node.classList.remove("btn-outline-primary")
+                                                                            that.enable()
+                                                                            return
+                                                                        })
+                                                                        this[0].node.classList.add("btn-outline-primary")
+                                                                        this[0].node.classList.remove("btn-primary")
+                                                                        this.disable()
+                                                                    }
                                                                 },
                                                                 {
                                                                     text: "Select All",
                                                                     action: function (e, dt, node, config) {
                                                                         dt.rows({search: "applied"}).select()
                                                                     },
-                                                                    className: "btn-bottom-row"
+                                                                    className: "btn-bottom-row",
+                                                                    init: function (dt, node, config) {
+                                                                        let that = this
+                                                                        dt.on('select.dt.DT deselect.dt.DT', function(){
+                                                                            let condition = dt.rows({selected: true}).count() === dt.rows().count()
+                                                                            if (condition) {
+                                                                                that[0].node.classList.remove("btn-primary")
+                                                                                that[0].node.classList.add("btn-outline-primary")
+                                                                                that.disable()
+                                                                                return
+                                                                            }
+                                                                            that[0].node.classList.add("btn-primary")
+                                                                            that[0].node.classList.remove("btn-outline-primary")
+                                                                            that.enable()
+                                                                            return
+                                                                        })
+                                                                        this[0].node.classList.remove("btn-outline-primary")
+                                                                        this[0].node.classList.add("btn-primary")
+                                                                        this.enable()
+                                                                    }
                                                                 },
                                                                 {
                                                                     text: "Deselect All",
                                                                     action: function (e, dt, node, config) {
                                                                         dt.rows().deselect()
                                                                     },
-                                                                    className: "btn-bottom-row"
+                                                                    className: "btn-bottom-row",
+                                                                    init: function (dt, node, config) {
+                                                                        let that = this
+                                                                        dt.on('select.dt.DT deselect.dt.DT', function(){
+                                                                            let condition = dt.rows({selected: true}).count() < 1
+                                                                            if (condition) {
+                                                                                that[0].node.classList.remove("btn-primary")
+                                                                                that[0].node.classList.add("btn-outline-primary")
+                                                                                that.disable()
+                                                                                return
+                                                                            }
+                                                                            that[0].node.classList.add("btn-primary")
+                                                                            that[0].node.classList.remove("btn-outline-primary")
+                                                                            that.enable()
+                                                                            return
+                                                                        })
+                                                                        this[0].node.classList.remove("btn-primary")
+                                                                        this[0].node.classList.add("btn-outline-primary")
+                                                                        this.disable()
+                                                                    }
+                                                                },
+                                                                {
+                                                                    text: "Single Update",
+                                                                    className:"btn-bottom-row",
+                                                                    action: function(e, dt, node, config){
+                                                                        let iframe = document.getElementById("CaspioFormDiv_bceeb000057f82fa188f488d81fe")
+                                                                        iframe.addEventListener("load", function(){
+                                                                            iframe.style = "width: 100%; height: 100%; border: none"
+                                                                            let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                                                                            let iframeHeight = iframeDoc.body.scrollHeight
+                                                                            iframe.style.height = iframeHeight + "px"
+                                                                        })
+                                                                        iframe.src = "../assets/single-opportunity.html?id_Opportunity="+ dt.rows(".selected").data()[0][0]
+                                                                        $('#SingleOpportunityUpdateModal').modal('show');
+                                                                    },
+                                                                    init: function (dt, node, config) {
+                                                                        let that = this
+                                                                        dt.on('select.dt.DT deselect.dt.DT', function(){
+                                                                            let condition = dt.rows({selected: true}).count() !== 1
+                                                                            if (condition) {
+                                                                                that[0].node.classList.remove("btn-primary")
+                                                                                that[0].node.classList.add("btn-outline-primary")
+                                                                                that.disable()
+                                                                                return
+                                                                            }
+                                                                            that[0].node.classList.add("btn-primary")
+                                                                            that[0].node.classList.remove("btn-outline-primary")
+                                                                            that.enable()
+                                                                            return
+                                                                            // that.enable(dt.rows({selected: true}).count() === 1)
+                                                                        })
+                                                                        // debugger
+                                                                        this[0].node.classList.remove("btn-primary")
+                                                                        this[0].node.classList.add("btn-outline-primary")
+                                                                        this.disable()
+                                                                    }
                                                                 }
+                                                            
 
                                                             ]
                                                         })
@@ -1018,23 +1134,24 @@
                                                             let isContinue = false;
                                                             async function openModal(){
                                                                 const id = await new Promise(function(resolve){
-                                                                    $('#exampleModal').modal('show');
+                                                                    $('#BulkDispositionModal').modal('show');
                                                                     document.addEventListener("FormSubmitted", function(e) {
                                                                         if (e.detail.appKey !== "bceeb0008d956cc83b4545eaaba8") return
                                                                         e.stopImmediatePropagation()
                                                                         const mainDiv = document.getElementById("CaspioFormDiv_bceeb0008d956cc83b4545eaaba8")
                                                                         const idDisposition = document.querySelector("#PostBackMessage"+e.detail.UniqueSuffix).innerText
                                                                         resolve(idDisposition)
-                                                                        $('#exampleModal').modal('hide')
+                                                                        $('#BulkDispositionModal').modal('hide')
                                                                     })
                                                                 })
                                                                 return id
 
                                                             }
+                                                            // debugger
                                                             openModal().then(result => {
                                                                 console.log("modal closed")
                                                                 idDisposition = result
-                                                                new DataTable(document.querySelector('table[id*="cbTable"].dataTable.no-footer')).rows('.selected').every(function(){
+                                                                dt.rows('.selected').every(function(){
                                                                     let data = this.data()
                                                                     addIFrame(iframesContainer, "../assets/update-dispositions.html?id_Opportunity="+data[0]+"&id_Disposition="+idDisposition)
                                                                 })
@@ -1054,11 +1171,11 @@
                                         </script>
 
                                         <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="BulkDispositionModal" tabindex="-1" role="dialog" aria-labelledby="BulkDispositionModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Bulk Disposition Update</h5>
+          <h5 class="modal-title" id="BulkDispositionModalLabel">Bulk Disposition Update</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -1067,6 +1184,22 @@
             <div id="CaspioFormDiv_bceeb0008d956cc83b4545eaaba8">
                 <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/net"></script>
             </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="SingleOpportunityUpdateModal" tabindex="-1" role="dialog" aria-labelledby="SingleOpportunityUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="SingleOpportunityUpdateModalLabel">Bulk Disposition Update</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-body-singleopportunityupdate">
+            <iframe id="CaspioFormDiv_bceeb000057f82fa188f488d81fe"></iframe>
         </div>
       </div>
     </div>
