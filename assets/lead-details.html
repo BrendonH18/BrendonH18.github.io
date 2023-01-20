@@ -456,7 +456,7 @@
                                     e.stopImmediatePropagation()
                                     const mainDiv = document.getElementById("CaspioFormDiv_bceeb000ce2b2206a4e641149fdd")
                                     const name = mainDiv.querySelector("#cbTable"+e.detail.uniqueSuffix+" > tbody > tr:nth-child(1) > td:nth-child(2) > span").textContent
-                                    const photo = mainDiv.querySelector("#cbTable"+e.detail.uniqueSuffix+" > tbody > tr:nth-child(2) > td:nth-child(2) > span > a").href
+                                    const photo = mainDiv.querySelector("#cbTable"+e.detail.uniqueSuffix+" > tbody > tr:nth-child(2) > td:nth-child(2) > span > a")?.href
                                     Array.from(document.getElementsByClassName("User-Name")).forEach(element => element.innerText = name)
                                     Array.from(document.getElementsByClassName("User-Photo")).forEach(element => element.src = photo)
                                 })
@@ -629,7 +629,7 @@
                                             </span>
                                             <!-- <h6 class="mb-0">Mobile</h6> -->
                                         </div>
-                                        
+
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -655,6 +655,7 @@
                                                 <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb000ad4304c44a254b55adad/net"></script>
                                             </div>
                                             <script>
+                                                let data
                                                 document.addEventListener("DataPageReady", function(e) {
                                                     if (e.detail.appKey !== "bceeb000ad4304c44a254b55adad") return
                                                     e.stopImmediatePropagation()
@@ -662,7 +663,7 @@
                                                     function extractHeaders(){
                                                         let rtn = Array.from(mainDiv.querySelectorAll("th")).reduce((list, ele)=>{
                                                             let str = ele.innerText
-                                                            str = str.replace(/\s+/g, '-').toLowerCase() 
+                                                            str = str.replace(/\s+/g, '-').toLowerCase()
                                                             list.push(str)
                                                             return list
                                                         }, [])
@@ -712,22 +713,27 @@
                                                                 }
                                                                 switch (Number(data[ele])) {
                                                                     case 1: // Admin
-                                                                    console.log("Admin")
-                                                                    toggleClass("admin-toggle")    
-                                                                    case 3: // Field Manager
-                                                                    console.log("Field")
+                                                                    toggleClass("admin-toggle")
                                                                     toggleClass("field-manager-toggle")
-                                                                    case 4: // Phone Manager
-                                                                    console.log("Phone")
                                                                     toggleClass("phone-manager-toggle")
-                                                                    case 6: // Phone Consultant
-                                                                    console.log("Phone C")
+                                                                    toggleClass("field-consultant-toggle")
                                                                     toggleClass("phone-consultant-toggle")
-                                                                    case 5: // Field Consultant
-                                                                    console.log("Field C")
+                                                                    break;
+                                                                    case 3: // Field Manager
                                                                     toggleClass("field-manager-toggle")
+                                                                    toggleClass("field-consultant-toggle")
+                                                                    break;
+                                                                    case 4: // Phone Manager
+                                                                    toggleClass("phone-manager-toggle")
+                                                                    toggleClass("phone-consultant-toggle")
+                                                                    break;
+                                                                    case 5: // Field Consultant
+                                                                    toggleClass("field-consultant-toggle")
+                                                                    break;
+                                                                    case 6: // Phone Consultant
+                                                                    toggleClass("phone-consultant-toggle")
+                                                                    break;
                                                                     default:
-                                                                    console.log("All")
                                                                         break;
                                                                 }
                                                             }
@@ -738,18 +744,108 @@
                                                     }
                                                     const headers = extractHeaders()
                                                     const info = extractInfo()
-                                                    const data = combineAll()
+                                                    data = combineAll()
                                                     updatePageData()
-                                                    debugger
                                                 })
+
+                                                let firstKey = false;
+                                                function sendUpdate(e){
+                                                    console.log("open iframe")
+                                                    let newiFrame = document.createElement('iframe')
+                                                    const formatParams = (e, data) => {
+                                                        let params = {}
+                                                        if (e?.classList.contains("prospect")) {
+                                                            params["location"] = "../assets/single-prospect-update.html"
+                                                            params["id_Prospect"] = data["id-prospect"]
+                                                            params["str_FirstName"] = document.querySelector(".caspio-update-field.str-prospect-firstname")?.innerText ?? data["str-prospect-firstname"]
+                                                            params["str_LastName"] = document.querySelector(".caspio-update-field.str-prospect-lastname")?.innerText ?? data["str-prospect-lastname"]
+                                                            params["str_Phone"] = document.querySelector(".caspio-update-field.str-prospect-phone")?.innerText ?? data["str-prospect-phone"]
+                                                            params["str_Phone1"] = document.querySelector(".caspio-update-field.str-prospect-phone1")?.innerText ?? data["str-prospect-phone1"]
+                                                            params["str_StreetAddress"] = document.querySelector(".caspio-update-field.str-prospect-streetaddress")?.innerText ?? data["str-prospect-streetaddress"]
+                                                            params["str_City"] = document.querySelector(".caspio-update-field.str-prospect-city")?.innerText ?? data["str-prospect-city"]
+                                                            params["str_State"] = document.querySelector(".caspio-update-field.str-prospect-state")?.innerText ?? data["str-prospect-state"]
+                                                            params["str_Zip"] = document.querySelector(".caspio-update-field.str-prospect-zip")?.innerText ?? data["str-prospect-zip"]
+                                                            
+                                                        }
+                                                        return params
+                                                    } 
+                                                    let params = formatParams(e, data)
+                                                    // let params1 = {
+                                                    //     location: getSrc(e)
+                                                    //     id_Prospect: "MBEVYFOJ",
+                                                    //     params[str_FirstName] = document.querySelector(".caspio-update-field.str-prospect-firstname")?.innerText ?? data["str-prospect-firstname"],
+                                                    //     params[str_LastName] = document.querySelector(".caspio-update-field.str-prospect-lastname")?.innerText ?? data["str-prospect-lastname"],
+                                                    //     params[str_Phone] = document.querySelector(".caspio-update-field.str-prospect-phone")?.innerText ?? data["str-prospect-phone"],
+                                                    //     params[str_Phone1] = document.querySelector(".caspio-update-field.str-prospect-phone1")?.innerText ?? data["str-prospect-phone1"],
+                                                    //     params[str_StreetAddress] = document.querySelector(".caspio-update-field.str-prospect-streetaddress")?.innerText ?? data["str-prospect-streetaddress"],
+                                                    //     params[str_City] = document.querySelector(".caspio-update-field.str-prospect-city")?.innerText ?? data["str-prospect-city"],
+                                                    //     params[str_State] = document.querySelector(".caspio-update-field.str-prospect-state")?.innerText ?? data["str-prospect-state"],
+                                                    //     params[str_Zip] = document.querySelector(".caspio-update-field.str-prospect-zip")?.innerText ?? data["str-prospect-zip"]
+                                                    // }
+                                                    let str =""
+                                                    Object.keys(params).forEach((ele, i) => {
+                                                        if (ele === "location") return str += params[ele] + "?"
+                                                        if ( i+1 === Object.keys(params).length) return str += ele + "=" + params[ele]
+                                                        str += ele + "=" + params[ele] + "&"
+                                                    })
+                                                    newiFrame.src = str
+                                                    let formUpdatePromise = new Promise((resolve, reject) => {
+                                                        document.getElementById("iframe-container").append(newiFrame)
+                                                        let checkIFrame = setInterval(() => {
+                                                            if(!newiFrame.offsetWidth){
+                                                                clearInterval(checkIFrame)
+                                                                resolve()
+                                                            }
+                                                        }, 100)
+                                                        setTimeout(()=>{
+                                                            newiFrame.remove()
+                                                            reject()
+                                                            clearInterval(checkIFrame)
+                                                        }, 5000)
+                                                    });
+                                                    formUpdatePromise.then(() => {
+                                                        firstKey = false;
+                                                        let alert = document.getElementById("alert-update-success")
+                                                        alert.style.transitionDuration = "0.2s"
+                                                        alert.classList.add("show")
+                                                        setTimeout(()=> {
+                                                            alert.style.transitionDuration = "2s"
+                                                            alert.classList.remove('show')
+                                                        },2000)
+                                                    });
+                                                    formUpdatePromise.catch(() => {
+                                                        firstKey = false;
+                                                        let alert = document.getElementById("alert-update-fail")
+                                                        alert.style.transitionDuration = "0.2s"
+                                                        alert.classList.add("show")
+                                                        setTimeout(()=> {
+                                                            alert.style.transitionDuration = "2s"
+                                                            alert.classList.remove('show')
+                                                        },2000)
+                                                    })
+                                                }
+                                                function keyPressLoop() {
+                                                    let timerId;
+                                                    return function(){
+                                                        console.log("key pressed", firstKey)
+                                                        if(firstKey === false){
+                                                            firstKey = true;
+                                                        }else{
+                                                            clearTimeout(timerId);
+                                                        }
+                                                        timerId = setTimeout(() => sendUpdate(this), 2000);
+                                                    }
+                                                }
+                                                let keyPressFunc = keyPressLoop();
                                             </script>
                                         </div>
-                                        <div class="toggle admin-toggle"></div>
-                                        <div class="toggle field-manager-toggle"></div>
-                                        <!-- <div class="admin-toggle phone-manager-toggle field-manager-toggle"></div> -->
-                                        <!-- <div class="admin-toggle phone-manager-toggle field-manager-toggle phone-consultant-toggle"></div> -->
-                                        <!-- <div class="phone-consultant-toggle"></div> -->
-                                        <!-- <div class="field-consultant-toggle"></div> -->
+                                        <div id="iframe-container" style="display: none"></div>
+                                        <div id="alert-update-success" class="alert alert-success fixed-bottom text-center hide fade" role="alert">
+                                            Update Successful!
+                                        </div>
+                                        <div id="alert-update-fail" class="alert alert-danger fixed-bottom text-center hide fade" role="alert">
+                                            Update Failed!
+                                        </div>
 
                                         <div class="row">
                                             <div class="col">
@@ -758,7 +854,10 @@
                                                         <i class="fas fa-solid fa-male"></i>
                                                         <!-- <h6 class="mb-0">Name</h6> -->
                                                     </div>
-                                                    <div class="col-sm-11 text-secondary f-prospect-fullname" ></div>
+                                                    <div class="col-sm-11 text-secondary f-prospect-fullname toggle admin-toggle" ></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-5 caspio-update-field prospect str-prospect-firstname toggle admin-toggle d-none" contenteditable="true" type="text"></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-5 caspio-update-field prospect str-prospect-lastname toggle admin-toggle d-none" contenteditable="true" type="text"></div>
+
                                                 </div>
                                                 <hr>
                                                 <div class="row">
@@ -774,7 +873,8 @@
                                                         <i class="fas fa-solid fa-phone fa-rotate-90"></i>
                                                         <!-- <h6 class="mb-0">Phone</h6> -->
                                                     </div>
-                                                    <div class="col-sm-11 text-secondary str-prospect-phone" ></div>
+                                                    <div class="col-sm-11 text-secondary str-prospect-phone toggle admin-toggle" ></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-10 caspio-update-field prospect str-prospect-phone toggle admin-toggle d-none" contenteditable="true" type="text"></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
@@ -782,7 +882,8 @@
                                                         <i class="fas fa-solid fa-phone fa-rotate-90"></i>
                                                         <!-- <h6 class="mb-0">Mobile</h6> -->
                                                     </div>
-                                                    <div class="col-sm-11 text-secondary str-prospect-phone1" ></div>
+                                                    <div class="col-sm-11 text-secondary str-prospect-phone1 toggle admin-toggle" ></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-10 caspio-update-field prospect str-prospect-phone1 toggle admin-toggle d-none" contenteditable="true" type="text"></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
@@ -790,7 +891,11 @@
                                                         <i class="fas fa-solid fa-map-marker-alt"></i>
                                                         <!-- <h6 class="mb-0">Addr.</h6> -->
                                                     </div>
-                                                    <div class="col-sm-11 text-secondary f-prospect-fulladdress" ></div>
+                                                    <div class="col-sm-11 text-secondary f-prospect-fulladdress toggle admin-toggle" ></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-4 caspio-update-field prospect str-prospect-streetaddress toggle admin-toggle d-none" contenteditable="true" type="text"></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-2 caspio-update-field prospect str-prospect-city toggle admin-toggle d-none" contenteditable="true" type="text"></div>  
+                                                    <div class="form-control form-control-sm ml-2 col-sm-1 caspio-update-field prospect str-prospect-state toggle admin-toggle d-none" contenteditable="true" type="text"></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-2 caspio-update-field prospect str-prospect-zip toggle admin-toggle d-none" contenteditable="true" type="text"></div>                                              
                                                 </div>
                                                 <!-- <hr>
                                                 <div class="row">
@@ -846,6 +951,9 @@
                                                     </div>
                                                 </div> -->
                                             </div>
+                                            <script>
+                                                Array.from(document.getElementsByClassName("caspio-update-field")).forEach(ele => ele.addEventListener("keyup", keyPressFunc));
+                                            </script>
                                         </div>
                                         <!-- <div class="chart-pie pt-4 pb-2"> OLD PIE CHART-->
                                         <!-- <div class="chart-area h-100 pt-4 pb-2">
