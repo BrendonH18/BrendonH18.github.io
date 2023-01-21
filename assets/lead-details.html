@@ -769,6 +769,7 @@
                                                     }
                                                     const formatParams = (e, data) => {
                                                         let params = {}
+                                                        debugger
                                                         if (e?.classList?.contains("prospect")) {
                                                             params["location"] = "../assets/single-prospect-update.html"
                                                             params["id_Prospect"] = data["id-prospect"]
@@ -786,6 +787,7 @@
                                                             params["id_Opportunity"] = data["id-opportunity"]
                                                             params["dt_Consultation"] = document.querySelector(".caspio-text-field.dt-consultation.caspio-format")?.value ?? data["dt-consultation"]
                                                             params["dt_Installation"] = document.querySelector(".caspio-text-field.dt-installation.caspio-format")?.value ?? data["dt-installation"]
+                                                            params["id_Disposition"] = document.querySelector(".caspio-dropdown-field.str-disposition")?.dataset.dispositionId ?? data['id-disposition']
                                                             // params["str_Phone"] = document.querySelector(".caspio-text-field.str-prospect-phone")?.innerText ?? data["str-prospect-phone"]
                                                             // params["str_Phone1"] = document.querySelector(".caspio-text-field.str-prospect-phone1")?.innerText ?? data["str-prospect-phone1"]
                                                             // params["str_StreetAddress"] = document.querySelector(".caspio-text-field.str-prospect-streetaddress")?.innerText ?? data["str-prospect-streetaddress"]
@@ -809,7 +811,7 @@
                                                     let formUpdatePromise = new Promise((resolve, reject) => {
                                                         document.getElementById("iframe-container").append(newiFrame)
                                                         let checkIFrame = setInterval(() => {
-                                                            if(!newiFrame.offsetWidth){
+                                                            if(!document.body.contains(newiFrame)){
                                                                 clearInterval(checkIFrame)
                                                                 resolve()
                                                             }
@@ -912,19 +914,16 @@
                                                         <!-- <h6 class="mb-0">Name</h6> -->
                                                     </div>
                                                     <div class="col-sm-11 text-primary str-disposition toggle admin-toggle" ></div>
-                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-primary caspio-dropdown-field caspio-dropdown-field-div-1 str-disposition dropdown-toggle toggle admin-toggle d-none" id="dispositionDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    </div>
-                                                    <div id="CaspioFormDiv_bceeb0008d956cc83b4545eaaba8" class="caspio-dropdown-field-div-1">
-                                                        <script type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/net"></script>
-                                                    </div>
-                                                    <div class="dropdown-menu" aria-labelledby="dispositionDropdownButton">
-                                                        <div href="" class="dropdown-item" value="One">1</div>
-                                                        <div href="" class="dropdown-item" value="Two">2</div>
-                                                        <div href="" class="dropdown-item">3</div>
-                                                        <div href="" class="dropdown-item">4</div>
-                                                        <div href="" class="dropdown-item">5</div>
-                                                        <div href="" class="dropdown-item">6</div>
-                                                        <div href="" class="dropdown-item">7</div>
+                                                    
+                                                    <div class="ml-2 p-0 col-sm-10 dropdown-element dropdown toggle admin-toggle d-none">
+                                                        <div class="form-control form-control-sm text-primary caspio-dropdown-field opportunity str-disposition dropdown-toggle" id="dispositionDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        </div>
+                                                        <div class="dropdown-menu" aria-labelledby="dispositionDropdownButton">
+                                                        </div>
+
+                                                        <div id="CaspioFormDiv_bceeb0008d956cc83b4545eaaba8" class="dropdown-caspio-element" style="display: none;">
+                                                            <!-- <script async type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/net"></script> -->
+                                                        </div>
                                                     </div>
                                                     
                                                 </div>
@@ -970,13 +969,71 @@
                                                 </div> -->
                                             </div>
                                             <script>
+                                                const loadScriptTo = (FILE_URL, element = document.body, async = true, type = "text/javascript") => {
+                                                    return new Promise((resolve, reject) => {
+                                                        try {
+                                                            const scriptEle = document.createElement("script");
+                                                            scriptEle.type = type;
+                                                            scriptEle.async = async;
+                                                            scriptEle.src =FILE_URL;
+
+                                                            document.addEventListener("DataPageReady", (ev) => {
+                                                                if (ev.detail.appKey !== "bceeb0008d956cc83b4545eaaba8") return
+                                                                resolve({ 
+                                                                    status: true,
+                                                                    detail: ev.detail
+                                                                });
+                                                            });
+
+                                                            document.addEventListener("error", (ev) => {
+                                                                reject({
+                                                                    status: false,
+                                                                    message: `Failed to load the script ＄{FILE_URL}`
+                                                                });
+                                                            });
+
+                                                            element.appendChild(scriptEle);
+                                                        } catch (error) {
+                                                            reject(error);
+                                                        }
+                                                    });
+                                                };
+
+
+
+
                                                 Array.from(document.querySelectorAll(".caspio-text-field")).forEach(ele => ele.addEventListener("keyup", keyPressFunc));
-                                                // Array.from(document.querySelectorAll(".caspio-dropdown-field")).forEach(ele => {
-                                                //     const elements = 
-                                                //     if( ele.classList.length !== 1 ) return
-                                                //     const lookupClassName = ele.classList[0]
-                                                //     debugger
-                                                // })
+                                                Array.from(document.querySelectorAll(".dropdown-element")).forEach(ele => {
+                                                    const caspioElement = ele.querySelector('.dropdown-caspio-element')
+                                                    const displayElement = ele.querySelector(".dropdown-toggle")
+                                                    loadScriptTo("https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/emb", caspioElement)
+                                                        .then(data => {
+                                                            console.log("Success", data)
+                                                            Array.from(caspioElement.querySelectorAll(".cbFormLabelCell")).forEach(label =>{
+                                                                const labelName = label.querySelector("label").innerText
+                                                                const labelField = caspioElement.querySelector("#"+label.querySelector("label").attributes.for.value)
+                                                                const options = Array.from(labelField?.querySelectorAll("option")).reduce((list, element) =>{
+                                                                    let newElement = document.createElement("a")
+                                                                    newElement.classList.add("dropdown-item")
+                                                                    newElement.dataset.dispositionId = element.value
+                                                                    newElement.innerText = element.innerText
+                                                                    newElement.href = "#"
+                                                                    newElement.addEventListener("click", (e) => {
+                                                                        displayElement.innerText = e.target.innerText
+                                                                        displayElement.dataset.dispositionId = e.target.dataset.dispositionId
+                                                                        keyPressFunc.bind(displayElement).call()
+                                                                    })
+                                                                    list.push(newElement)
+                                                                    return list
+                                                                },[])
+                                                                document.querySelector('[aria-labelledby="dispositionDropdownButton"]').append(...options)
+                                                                debugger
+                                                            })
+                                                        })
+                                                        .catch(data=>{
+                                                            console.log(data)
+                                                        })
+                                                })
                                                 Array.from(document.querySelectorAll(".caspio-date-field")).forEach(ele => {
                                                     ele.flatpickr({
                                                         enableTime: true,
