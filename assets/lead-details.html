@@ -732,18 +732,22 @@
                                                                     toggleClass("phone-consultant-toggle")
                                                                     break;
                                                                     case 3: // Field Manager
+                                                                    if (data["b-isclosed"] === "Yes") break;
                                                                     toggleClass("field-manager-toggle")
                                                                     toggleClass("field-consultant-toggle")
                                                                     break;
                                                                     case 4: // Phone Manager
+                                                                    if (data["b-isclosed"] === "Yes") break;
                                                                     toggleClass("phone-manager-toggle")
                                                                     toggleClass("phone-consultant-toggle")
                                                                     break;
                                                                     case 5: // Field Consultant
-                                                                    toggleClass("field-consultant-toggle")
+                                                                    if (data["b-isclosed"] === "Yes") break;
+                                                                    if (data["id-fieldstaff"] === data["id-staff"]) toggleClass("field-consultant-toggle")
                                                                     break;
                                                                     case 6: // Phone Consultant
-                                                                    toggleClass("phone-consultant-toggle")
+                                                                    if (data["b-isclosed"] === "Yes") break;
+                                                                    if (data["id-phonestaff"] === data["id-staff"]) toggleClass("phone-consultant-toggle")
                                                                     break;
                                                                     default:
                                                                         break;
@@ -916,9 +920,9 @@
                                                         <i class="fas fa-solid fa-sliders-h"></i>
                                                         <!-- <h6 class="mb-0">Name</h6> -->
                                                     </div>
-                                                    <div class="col-sm-11 text-primary str-disposition toggle admin-toggle" ></div>
+                                                    <div class="col-sm-11 text-primary str-disposition toggle field-consultant-toggle" ></div>
                                                     
-                                                    <div class="ml-2 p-0 col-sm-10 caspio-dropdown-element dropdown toggle admin-toggle d-none">
+                                                    <div class="ml-2 p-0 col-sm-10 caspio-dropdown-element dropdown toggle field-consultant-toggle d-none">
                                                         <div class="form-control form-control-sm text-primary caspio-dropdown-field opportunity str-disposition dropdown-toggle" data-src="https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/emb" data-caspio-label="disposition" id="dispositionDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
                                                     </div>
                                                     
@@ -929,8 +933,8 @@
                                                         <i class="fas fa-solid fa-calendar-alt"></i>
                                                         <!-- <h6 class="mb-0">Email</h6> -->
                                                     </div>
-                                                    <div class="col-sm-11 text-secondary dt-consultation toggle admin-toggle" ></div>
-                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-secondary opportunity dt-consultation caspio-date-field toggle admin-toggle d-none" contenteditable="true"></div>
+                                                    <div class="col-sm-11 text-secondary dt-consultation toggle field-consultant-toggle" ></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-secondary opportunity dt-consultation caspio-date-field toggle field-consultant-toggle d-none" contenteditable="true"></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
@@ -938,8 +942,8 @@
                                                         <i class="fas fa-solid fa-check-square"></i>
                                                         <!-- <h6 class="mb-0">Phone</h6> -->
                                                     </div>
-                                                    <div class="col-sm-11 text-secondary dt-installation toggle admin-toggle" ></div>
-                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-secondary opportunity dt-installation caspio-date-field toggle admin-toggle d-none" contenteditable="true"></div>
+                                                    <div class="col-sm-11 text-secondary dt-installation toggle field-consultant-toggle" ></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-secondary opportunity dt-installation caspio-date-field toggle field-consultant-toggle d-none" contenteditable="true"></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
