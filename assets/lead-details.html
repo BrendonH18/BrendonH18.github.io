@@ -790,8 +790,8 @@
                                                         if(e?.classList?.contains("opportunity")) {
                                                             params["location"] = "../assets/single-opportunity-update.html"
                                                             params["id_Opportunity"] = data["id-opportunity"]
-                                                            params["dt_Consultation"] = document.querySelector(".caspio-text-field.dt-consultation.caspio-format")?.value ?? data["dt-consultation"]
-                                                            params["dt_Installation"] = document.querySelector(".caspio-text-field.dt-installation.caspio-format")?.value ?? data["dt-installation"]
+                                                            params["dt_Consultation"] = document.querySelector(".caspio-date-field.dt-consultation.caspio-format")?.value ?? data["dt-consultation"]
+                                                            params["dt_Installation"] = document.querySelector(".caspio-date-field.dt-installation.caspio-format")?.value ?? data["dt-installation"]
                                                             params["id_Disposition"] = document.querySelector(".caspio-dropdown-field.str-disposition")?.dataset.caspioId ?? data['id-disposition']
                                                             params["id_FieldStaff"] = document.querySelector(".caspio-dropdown-field.f-fieldstaff-fullname")?.dataset.caspioId ?? data["id-fieldstaff"]
                                                             params["id_PhoneStaff"] = document.querySelector(".caspio-dropdown-field.f-phonestaff-fullname")?.dataset.caspioId ?? data["id-phonestaff"]
@@ -930,7 +930,7 @@
                                                         <!-- <h6 class="mb-0">Email</h6> -->
                                                     </div>
                                                     <div class="col-sm-11 text-secondary dt-consultation toggle admin-toggle" ></div>
-                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-secondary caspio-text-field opportunity dt-consultation caspio-date-field toggle admin-toggle d-none" contenteditable="true"></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-secondary opportunity dt-consultation caspio-date-field toggle admin-toggle d-none" contenteditable="true"></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
@@ -939,7 +939,7 @@
                                                         <!-- <h6 class="mb-0">Phone</h6> -->
                                                     </div>
                                                     <div class="col-sm-11 text-secondary dt-installation toggle admin-toggle" ></div>
-                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-secondary caspio-text-field opportunity dt-installation caspio-date-field toggle admin-toggle d-none" contenteditable="true"></div>
+                                                    <div class="form-control form-control-sm ml-2 col-sm-10 text-secondary opportunity dt-installation caspio-date-field toggle admin-toggle d-none" contenteditable="true"></div>
                                                 </div>
                                                 <hr>
                                                 <div class="row">
