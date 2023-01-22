@@ -602,7 +602,12 @@
                                         <div class="d-flex flex-column align-items-center text-center">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle shadow-sm file-fieldstaff-photo" width="150" >
                                             <div class="mt-3">
-                                            <h4 class="f-fieldstaff-fullname"></h4>
+                                            <h4 class="f-fieldstaff-fullname toggle admin-toggle"></h4>
+                                            <div class="ml-2 caspio-dropdown-element dropdown toggle admin-toggle d-none">
+                                                <div class="form-control form-control-sm text-primary caspio-dropdown-field opportunity f-fieldstaff-fullname dropdown-toggle" data-src="https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/emb" data-caspio-label="ActiveFieldConsultants" id="ActiveFieldConsultantsDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+                                            </div>
+
+
                                             <p class="text-secondary mb-1">Field Consultant</p>
                                             <p class="text-muted font-size-sm">Miller Connections</p>
                                             <!-- <button class="btn btn-primary">Message</button> -->
@@ -692,10 +697,12 @@
                                                     function updatePageData(){
                                                         headers.forEach(ele => {
                                                             if ( ele === "file-fieldstaff-photo" ) {
-                                                                if (data[ele] === "" ) return
+                                                                const timestamp = new Date().getTime()
+                                                                let imageURL = "https://bootdey.com/img/Content/avatar/avatar7.png"
+                                                                if (data[ele] !== "" ) imageURL = data[ele]
                                                                 var update = Array.from(document.getElementsByClassName(ele))
                                                                 update.forEach(photo =>{
-                                                                    photo.src = data[ele]
+                                                                    photo.src = imageURL
                                                                 })
                                                             }
                                                             if ( ele === "dt-closed" ) {
@@ -755,7 +762,6 @@
 
                                                 let firstKey = false;
                                                 function sendUpdate(e){
-                                                    console.log("open iframe")
                                                     let newiFrame = document.createElement('iframe')
                                                     function fireAlertById(alertId) {
                                                         firstKey = false;
@@ -769,7 +775,6 @@
                                                     }
                                                     const formatParams = (e, data) => {
                                                         let params = {}
-                                                        debugger
                                                         if (e?.classList?.contains("prospect")) {
                                                             params["location"] = "../assets/single-prospect-update.html"
                                                             params["id_Prospect"] = data["id-prospect"]
@@ -787,8 +792,9 @@
                                                             params["id_Opportunity"] = data["id-opportunity"]
                                                             params["dt_Consultation"] = document.querySelector(".caspio-text-field.dt-consultation.caspio-format")?.value ?? data["dt-consultation"]
                                                             params["dt_Installation"] = document.querySelector(".caspio-text-field.dt-installation.caspio-format")?.value ?? data["dt-installation"]
-                                                            params["id_Disposition"] = document.querySelector(".caspio-dropdown-field.str-disposition")?.dataset.dispositionId ?? data['id-disposition']
-                                                            // params["str_Phone"] = document.querySelector(".caspio-text-field.str-prospect-phone")?.innerText ?? data["str-prospect-phone"]
+                                                            params["id_Disposition"] = document.querySelector(".caspio-dropdown-field.str-disposition")?.dataset.caspioId ?? data['id-disposition']
+                                                            params["id_FieldStaff"] = document.querySelector(".caspio-dropdown-field.f-fieldstaff-fullname")?.dataset.caspioId ?? data["id-fieldstaff"]
+                                                            params["id_PhoneStaff"] = document.querySelector(".caspio-dropdown-field.f-phonestaff-fullname")?.dataset.caspioId ?? data["id-phonestaff"]
                                                             // params["str_Phone1"] = document.querySelector(".caspio-text-field.str-prospect-phone1")?.innerText ?? data["str-prospect-phone1"]
                                                             // params["str_StreetAddress"] = document.querySelector(".caspio-text-field.str-prospect-streetaddress")?.innerText ?? data["str-prospect-streetaddress"]
                                                             // params["str_City"] = document.querySelector(".caspio-text-field.str-prospect-city")?.innerText ?? data["str-prospect-city"]
@@ -805,8 +811,6 @@
                                                         if ( i+1 === Object.keys(params).length) return str += ele + "=" + params[ele]
                                                         str += ele + "=" + params[ele] + "&"
                                                     })
-                                                    console.log(str)
-                                                    debugger
                                                     newiFrame.src = str
                                                     let formUpdatePromise = new Promise((resolve, reject) => {
                                                         document.getElementById("iframe-container").append(newiFrame)
@@ -829,7 +833,6 @@
 
                                                     let timerId;
                                                     return function(){
-                                                        console.log("key pressed", firstKey)
                                                         if(firstKey === false){
                                                             firstKey = true;
                                                         }else{
@@ -915,15 +918,8 @@
                                                     </div>
                                                     <div class="col-sm-11 text-primary str-disposition toggle admin-toggle" ></div>
                                                     
-                                                    <div class="ml-2 p-0 col-sm-10 dropdown-element dropdown toggle admin-toggle d-none">
-                                                        <div class="form-control form-control-sm text-primary caspio-dropdown-field opportunity str-disposition dropdown-toggle" id="dispositionDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        </div>
-                                                        <div class="dropdown-menu" aria-labelledby="dispositionDropdownButton">
-                                                        </div>
-
-                                                        <div id="CaspioFormDiv_bceeb0008d956cc83b4545eaaba8" class="dropdown-caspio-element" style="display: none;">
-                                                            <!-- <script async type="text/javascript" src="https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/net"></script> -->
-                                                        </div>
+                                                    <div class="ml-2 p-0 col-sm-10 caspio-dropdown-element dropdown toggle admin-toggle d-none">
+                                                        <div class="form-control form-control-sm text-primary caspio-dropdown-field opportunity str-disposition dropdown-toggle" data-src="https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/emb" data-caspio-label="disposition" id="dispositionDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
                                                     </div>
                                                     
                                                 </div>
@@ -959,7 +955,10 @@
                                                         <i class="fas fa-solid fa-user-tag"></i>
                                                         <!-- <h6 class="mb-0">Addr.</h6> -->
                                                     </div>
-                                                    <div class="col-sm-11 text-secondary f-phonestaff-fullname" ></div>
+                                                    <div class="col-sm-11 text-secondary f-phonestaff-fullname toggle admin-toggle" ></div>
+                                                    <div class="ml-2 p-0 col-sm-10 caspio-dropdown-element dropdown toggle admin-toggle d-none">
+                                                        <div class="form-control form-control-sm text-primary caspio-dropdown-field opportunity f-phonestaff-fullname dropdown-toggle" data-src="https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/emb" data-caspio-label="PhoneStaffUpdate" id="PhoneStaffUpdateDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+                                                    </div>
                                                 </div>
                                                 <!-- <hr>
                                                 <div class="row">
@@ -972,10 +971,18 @@
                                                 const loadScriptTo = (FILE_URL, element = document.body, async = true, type = "text/javascript") => {
                                                     return new Promise((resolve, reject) => {
                                                         try {
+                                                            
                                                             const scriptEle = document.createElement("script");
                                                             scriptEle.type = type;
                                                             scriptEle.async = async;
                                                             scriptEle.src =FILE_URL;
+                                                            
+                                                            // scriptEle.id = id
+                                                            // document.addEventListener("DataPageReady", (e) => {
+                                                            //     console.log(e)
+                                                            //     if (e.detail.appKey === "bceeb0008d956cc83b4545eaaba8") 
+                                                            // })
+                                                        
 
                                                             document.addEventListener("DataPageReady", (ev) => {
                                                                 if (ev.detail.appKey !== "bceeb0008d956cc83b4545eaaba8") return
@@ -1003,32 +1010,44 @@
 
 
                                                 Array.from(document.querySelectorAll(".caspio-text-field")).forEach(ele => ele.addEventListener("keyup", keyPressFunc));
-                                                Array.from(document.querySelectorAll(".dropdown-element")).forEach(ele => {
-                                                    const caspioElement = ele.querySelector('.dropdown-caspio-element')
-                                                    const displayElement = ele.querySelector(".dropdown-toggle")
-                                                    loadScriptTo("https://c2dcc460.caspio.com/dp/bceeb0008d956cc83b4545eaaba8/emb", caspioElement)
+                                                Array.from(document.querySelectorAll(".caspio-dropdown-field")).forEach(ele => {
+                                                    
+                                                    let caspioElement = document.createElement("div")
+                                                    caspioElement.style.display = "none"
+                                                    // caspioElement.id = "Caspio_"+ele.id
+                                                    let dropdownMenu = document.createElement("div")
+                                                    dropdownMenu.setAttribute("aria-labelledby", ele.id)
+                                                    dropdownMenu.classList.add("dropdown-menu")
+                                                    ele.parentElement.append(caspioElement, dropdownMenu)
+                                                    // ele.querySelector('.dropdown-caspio-element')
+                                                    loadScriptTo(ele.dataset.src, caspioElement)
                                                         .then(data => {
-                                                            console.log("Success", data)
-                                                            Array.from(caspioElement.querySelectorAll(".cbFormLabelCell")).forEach(label =>{
+                                                            Array.from(caspioElement.querySelectorAll(":scope .cbFormLabelCell")).forEach(label =>{
                                                                 const labelName = label.querySelector("label").innerText
-                                                                const labelField = caspioElement.querySelector("#"+label.querySelector("label").attributes.for.value)
-                                                                const options = Array.from(labelField?.querySelectorAll("option")).reduce((list, element) =>{
-                                                                    let newElement = document.createElement("a")
-                                                                    newElement.classList.add("dropdown-item")
-                                                                    newElement.dataset.dispositionId = element.value
-                                                                    newElement.innerText = element.innerText
-                                                                    newElement.href = "#"
-                                                                    newElement.addEventListener("click", (e) => {
-                                                                        displayElement.innerText = e.target.innerText
-                                                                        displayElement.dataset.dispositionId = e.target.dataset.dispositionId
-                                                                        keyPressFunc.bind(displayElement).call()
-                                                                    })
-                                                                    list.push(newElement)
-                                                                    return list
-                                                                },[])
-                                                                document.querySelector('[aria-labelledby="dispositionDropdownButton"]').append(...options)
-                                                                debugger
+                                                                Array.from(document.querySelectorAll(".caspio-dropdown-field")).forEach(ele1 => {
+                                                                    // if (ele1.dataset.caspioLabel.toLowerCase() === "disposition" && labelName.toLowerCase() === "disposition") 
+                                                                    if (labelName.toLowerCase() !== ele1.dataset.caspioLabel.toLowerCase()) return
+                                                                    dropdownMenu = document.querySelector('[aria-labelledby="'+ele1.id+'"]')
+                                                                    const labelField = caspioElement.querySelector("#"+label.querySelector("label").attributes.for.value)
+                                                                    const options = Array.from(labelField?.querySelectorAll(":scope option")).reduce((list, element) =>{
+                                                                        let newElement = document.createElement("a")
+                                                                        newElement.classList.add("dropdown-item")
+                                                                        newElement.dataset.caspioId = element.value
+                                                                        newElement.innerText = element.innerText
+                                                                        newElement.href = "#"
+                                                                        newElement.addEventListener("click", (e) => {
+                                                                            ele1.innerText = e.target.innerText
+                                                                            ele1.dataset.caspioId = e.target.dataset.caspioId
+                                                                            keyPressFunc.bind(ele1).call()
+                                                                        })
+                                                                        list.push(newElement)
+                                                                        return list
+                                                                    },[])
+                                                                    dropdownMenu.append(...options)
+                                                                })
                                                             })
+                                                            // 
+                                                            // caspioElement.remove()
                                                         })
                                                         .catch(data=>{
                                                             console.log(data)
@@ -1050,7 +1069,6 @@
                                                         // }
                                                         onChange: (selectedDates, dateStr, instance) => {
                                                             instance.altInput.innerText = instance.altInput.value
-                                                            debugger
                                                             keyPressFunc.bind(instance.element).call()
                                                         }
                                                     })
