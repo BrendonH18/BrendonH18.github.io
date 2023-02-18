@@ -1,0 +1,19 @@
+.pt-10,
+.py-10 {
+  padding-top: 10rem !important;
+}
+
+.pr-10,
+.px-10 {
+  padding-right: 10rem !important;
+}
+
+.pb-10,
+.py-10 {
+  padding-bottom: 10rem !important;
+}
+
+.pl-10,
+.px-10 {
+  padding-left: 10rem !important;
+}
